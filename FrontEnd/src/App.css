@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+}
+
+.MainContent {
+  position: relative;
+  z-index: 1;
+  /* space for fixed navbar */
+}
