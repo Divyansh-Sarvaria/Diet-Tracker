@@ -7,7 +7,7 @@ export default function Footer() {
         opacity: "60%",
         justifyContent: "center",
         alignItems: "center",
-        position: "relative",
+        position: "fixed",
         bottom: "0",
         width: "100%",
       }}

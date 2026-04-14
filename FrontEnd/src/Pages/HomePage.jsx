@@ -1,6 +1,55 @@
 import Button from "../Components/HomePageButton";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [diet, setDiet] = useState(null);
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (!token) return;
+
+    fetch("http://localhost:5000/diet/getdiet", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setDiet(data);
+      })
+      .catch((err) => console.error(err));
+  }, [token]);
+  useEffect(() => {
+    if (!token) return;
+
+    fetch("http://localhost:5000/auth/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Unauthorized");
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setUser(data);
+      })
+      .catch(() => {
+        localStorage.removeItem("token");
+      });
+  }, [token]);
+
+  if (!token) {
+    return <Navigate to="/" replace />;
+  }
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
   return (
     <div
       className="container-fluid p-0"
@@ -93,7 +142,7 @@ export default function HomePage() {
                     }}
                   >
                     <p style={{ margin: 0, fontSize: "1.1rem" }}>
-                      <strong>John Doe</strong>
+                      <strong>{user?.name || "Guest"}</strong>
                     </p>
                     <p
                       style={{
@@ -102,7 +151,7 @@ export default function HomePage() {
                         fontSize: "0.85rem",
                       }}
                     >
-                      🍴 Gold Member • 45 Day Streak
+                      {user?.membership || "Free"} • {user?.streak || 0}
                     </p>
                   </div>
                 </div>
@@ -116,8 +165,16 @@ export default function HomePage() {
                   }}
                 >
                   {[
-                    { label: "Daily Calories", value: "1,450", sub: "/2,000" },
-                    { label: "Protein", value: "85g", sub: "/120g" },
+                    {
+                      label: "Daily Calories",
+                      value: diet?.plan?.totals?.calories || "0",
+                      sub: "/2,000",
+                    },
+                    {
+                      label: "Protein",
+                      value: diet?.plan?.totals?.protein || "0g",
+                      sub: "/120g",
+                    },
                   ].map((stat, idx) => (
                     <div
                       key={idx}
@@ -215,8 +272,11 @@ export default function HomePage() {
                   gap: "12px",
                 }}
               >
-                <Button text="PLAN DIET" />
-                <Button text="DIET CALCULATOR" />
+                <Button
+                  text="PLAN DIET"
+                  onClick={() => navigate("/PlanDiet")}
+                />
+                <Button text="View Saved Diet Plan" />
                 <Button text="FEEDBACK" />
 
                 {/* Quick Stats */}

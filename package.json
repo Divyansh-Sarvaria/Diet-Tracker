@@ -1,8 +1,10 @@
 {
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@hookform/resolvers": "^5.2.2",
+    "dotenv": "^17.3.1",
     "react-hook-form": "^7.71.2",
-    "styled-components": "^6.3.9",
+    "styled-components": "^6.3.12",
     "yup": "^1.7.1"
   }
 }

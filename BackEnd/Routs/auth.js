@@ -1,8 +1,10 @@
 const express = require("express");
 const User = require("../Modal/user");
-const jwt = require("jsonwebtoken");  
+const jwt = require("jsonwebtoken");
 const router = express.Router();
-router.post("/login", async (req, res) => {
+const auth = require("../MiddleWare/authMiddleware");
+
+const login = async (req, res) => {
   try {
     const { username, password } = req.body;
 
@@ -31,9 +33,8 @@ router.post("/login", async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Server error", token: token });
   }
-});
-
-router.post("/SignUp", async (req, res) => {
+};
+const signup = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
@@ -51,6 +52,51 @@ router.post("/SignUp", async (req, res) => {
     console.log(error);
     res.status(500).json({ message: "Server Error" });
   }
-});
+};
+const getProfile = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select(
+      "username protein dailyCalories",
+    );
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
+    res.json({
+      name: user.username,
+      protein: user.protein,
+      dailyCalories: user.dailyCalories,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+const saveProfile = async (req, res) => {
+  try {
+    const { protein, dailyCalories } = req.body;
+
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      {
+        protein,
+        dailyCalories,
+      },
+      { new: true },
+    ).select("username protein dailyCalories");
+
+    res.json({
+      message: "Profile updated",
+      name: user.username,
+      protein: user.protein,
+      dailyCalories: user.dailyCalories,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+router.post("/login", login);
+router.post("/SignUp", signup);
+router.route("/profile").get(auth, getProfile).put(auth, saveProfile);
 module.exports = router;

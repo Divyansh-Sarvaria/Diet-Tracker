@@ -12,6 +12,18 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    password: {
+      type: String,
+      required: true,
+    },
+    protein: {
+      type: Number,
+      default: 0,
+    },
+    dailyCalories: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true },
 );

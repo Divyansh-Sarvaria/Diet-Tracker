@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-
+import HomePage from "../Pages/HomePage";
 export default function Navbar() {
   const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ export default function Navbar() {
       }}
     >
       <div className="container-fluid">
-        <Link className="navbar-brand fw-bold" to="/">
+        <Link className="navbar-brand fw-bold" to="/HomePage">
           DietApp
         </Link>
 
@@ -66,11 +66,18 @@ export default function Navbar() {
             )}
 
             {isLoggedIn && (
-              <li className="nav-item">
-                <button className="btn btn-danger" onClick={handleLogout}>
-                  Logout
-                </button>
-              </li>
+              <>
+                <li>
+                  <Link className="nav-link" to="/PlanDiet">
+                    PlanDiet
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <button className="btn btn-danger" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </li> 
+              </>
             )}
           </ul>
         </div>

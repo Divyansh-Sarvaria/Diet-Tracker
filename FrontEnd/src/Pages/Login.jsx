@@ -4,9 +4,10 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 export default function LoginPage() {
   const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     try {
-      const res = await fetch("http://localhost:5000/login", {
+      const res = await fetch("http://localhost:5000/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -18,12 +19,14 @@ export default function LoginPage() {
         alert(result.message);
         return;
       }
+      console.log(res);
+      localStorage.setItem("user", JSON.stringify(result));
       localStorage.setItem("token", result.token);
       console.log("Server response:", result);
       navigate("/HomePage");
     } catch (err) {
       console.error(err);
-      alert("Something went wrong");
+      alert("Something went wrong", err);
     }
   };
   const {

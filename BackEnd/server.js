@@ -1,20 +1,29 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const connectDb = require("./config/db");
 const authRoutes = require("./Routs/auth");
+const nutritionRoutes = require("./Routs/nutritionRoutes");
+
 const app = express();
-app.use(cors());
 
 connectDb();
+
+app.use(cors());
 app.use(express.json());
-app.use(authRoutes);
 
+app.use("/auth", authRoutes);
+app.use("/nutrition", nutritionRoutes);
+
+const mealRoutes = require("./Routs/mealRouts");
+app.use("/Meal", mealRoutes);
+  
 app.get("/", (req, res) => {
-  res.send("api is running");
+  res.send("API is running");
 });
-
+app.use("/diet", require("./Routs/Diet"));
 const port = 5000;
 
 app.listen(port, () => {
-  console.log(`server running on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
