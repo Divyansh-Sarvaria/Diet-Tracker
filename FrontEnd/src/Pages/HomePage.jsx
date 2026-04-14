@@ -276,9 +276,11 @@ export default function HomePage() {
                   text="PLAN DIET"
                   onClick={() => navigate("/PlanDiet")}
                 />
-                <Button text="View Saved Diet Plan" />
-                <Button text="FEEDBACK" />
-
+                <Button
+                  text="View Saved Diet Plan"
+                  onClick={() => navigate("/SavedDietPlans")}
+                />
+                 {/* <Button text="FEEDBACK" /> */}
                 {/* Quick Stats */}
                 <div
                   style={{

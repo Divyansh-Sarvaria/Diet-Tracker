@@ -7,6 +7,11 @@ const dietPlanSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    name: {
+      type: String,
+      required: true, // make it required if needed
+      trim: true,
+    },
     date: {
       type: String, // "YYYY-MM-DD"
       required: true,

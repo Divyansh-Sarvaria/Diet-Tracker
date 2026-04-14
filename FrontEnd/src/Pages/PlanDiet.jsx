@@ -17,6 +17,12 @@ export default function PlanDiet() {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [planName, setPlanName] = useState("");
+  const handleSaveClick = () => {
+    setShowModal(true);
+  };
+
   const clickTimers = useRef({});
 
   const [selectedFoods, setSelectedFoods] = useState(() => {
@@ -152,7 +158,14 @@ export default function PlanDiet() {
     }
   };
 
-  const handleSave = async () => {
+  // const handleSave =
+
+  const handleFinalSave = async () => {
+    if (!planName.trim()) {
+      alert("Please enter a plan name");
+      return;
+    }
+
     try {
       const res = await fetch("http://localhost:5000/diet/save", {
         method: "POST",
@@ -161,8 +174,10 @@ export default function PlanDiet() {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
         body: JSON.stringify({
+          name: planName,
           foods: selectedFoods,
           totals,
+          date: new Date().toISOString().split("T")[0],
         }),
       });
 
@@ -170,12 +185,28 @@ export default function PlanDiet() {
 
       if (data.success) {
         alert("✅ Diet saved successfully!");
+
+        // ✅ RESET EVERYTHING
+        setSelectedFoods([]);
+        setTotals({
+          calories: 0,
+          protein: 0,
+          carbs: 0,
+          fat: 0,
+        });
+
+        localStorage.removeItem("selectedFoods"); // 👈 IMPORTANT
+
+        setShowModal(false);
+        setPlanName("");
+      } else {
+        alert("❌ Failed to save");
       }
     } catch (err) {
       console.error(err);
+      alert("⚠️ Error saving diet");
     }
   };
-
   const max = { calories: 2000, protein: 100, carbs: 300, fat: 70 };
 
   const unselectedFoods = foods.filter(
@@ -359,7 +390,7 @@ export default function PlanDiet() {
 
       {/* Fixed Save Button */}
       <button
-        onClick={handleSave}
+        onClick={handleSaveClick}
         style={{
           position: "fixed",
           bottom: "28px",
@@ -378,6 +409,78 @@ export default function PlanDiet() {
       >
         💾 Save Plan
       </button>
+      {showModal && (
+        <div style={styles.overlay}>
+          <div style={styles.modal}>
+            <h3 style={{ marginBottom: "10px" }}>Name Your Diet Plan</h3>
+
+            <input
+              type="text"
+              placeholder="e.g. Fat Loss Plan"
+              value={planName}
+              onChange={(e) => setPlanName(e.target.value)}
+              style={styles.input}
+            />
+
+            <div style={styles.actions}>
+              <button style={styles.cancel} onClick={() => setShowModal(false)}>
+                Cancel
+              </button>
+              <button style={styles.save} onClick={handleFinalSave}>
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+const styles = {
+  overlay: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: "rgba(0,0,0,0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 10000,
+  },
+  modal: {
+    background: "#fff",
+    padding: "20px",
+    borderRadius: "12px",
+    width: "320px",
+    boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+  },
+  input: {
+    width: "100%",
+    padding: "10px",
+    marginTop: "10px",
+    borderRadius: "8px",
+    border: "1px solid #ccc",
+  },
+  actions: {
+    marginTop: "15px",
+    display: "flex",
+    justifyContent: "space-between",
+  },
+  cancel: {
+    padding: "8px 16px",
+    borderRadius: "8px",
+    border: "none",
+    background: "#ccc",
+    cursor: "pointer",
+  },
+  save: {
+    padding: "8px 16px",
+    borderRadius: "8px",
+    border: "none",
+    background: "#11998e",
+    color: "#fff",
+    cursor: "pointer",
+  },
+};

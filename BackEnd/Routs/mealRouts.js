@@ -5,10 +5,11 @@ const Meal = require("../Modal/meal");
 
 router.post("/add", auth, async (req, res) => {
   try {
-    const { foodName, grams, calories, protein, carbs, fat } = req.body;
+    const { foodName, grams, calories, protein, carbs, fat, name } = req.body;
 
     const meal = new Meal({
       userId: req.user.id,
+      name,
       foodName,
       grams,
       calories,

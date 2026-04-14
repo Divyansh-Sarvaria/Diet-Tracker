@@ -72,11 +72,16 @@ export default function Navbar() {
                     PlanDiet
                   </Link>
                 </li>
+                <li>
+                  <Link className="nav-link" to="/SavedDietPlans">
+                    View Saved Planes
+                  </Link>
+                </li>
                 <li className="nav-item">
                   <button className="btn btn-danger" onClick={handleLogout}>
                     Logout
                   </button>
-                </li> 
+                </li>
               </>
             )}
           </ul>

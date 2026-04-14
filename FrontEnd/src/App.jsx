@@ -12,6 +12,7 @@ import Navbar from "./Components/Navbar.jsx";
 import Footer from "./Components/Footer.jsx";
 import PrivateRoute from "./Components/PrivateRouts.jsx";
 import PlanDiet from "./Pages/PlanDiet.jsx";
+import SavedDietPlans from "./Pages/SavedDietPlans.jsx";
 <Route path="/signup" element={<SignUp />} />;
 function App() {
   return (
@@ -36,6 +37,14 @@ function App() {
             element={
               <PrivateRoute>
                 <PlanDiet />
+              </PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path="/SavedDietPlans"
+            element={
+              <PrivateRoute>
+                <SavedDietPlans />
               </PrivateRoute>
             }
           ></Route>

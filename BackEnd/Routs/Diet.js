@@ -7,7 +7,7 @@ const DietPlan = require("../Modal/DietPlan");
 router.post("/save", auth, async (req, res) => {
   try {
     const userId = req.user.id;
-    const { foods, totals } = req.body;
+    const { foods, totals, name } = req.body;
 
     const today = new Date().toISOString().split("T")[0];
 
@@ -25,20 +25,14 @@ router.post("/save", auth, async (req, res) => {
     const finalFoods = Object.values(grouped);
 
     // Check if already exists → overwrite
-    let plan = await DietPlan.findOne({ userId, date: today });
 
-    if (plan) {
-      plan.foods = finalFoods;
-      plan.totals = totals;
-      await plan.save();
-    } else {
-      plan = await DietPlan.create({
-        userId,
-        date: today,
-        foods: finalFoods,
-        totals,
-      });
-    }
+    plan = await DietPlan.create({
+      userId,
+      name,
+      date: today,
+      foods: finalFoods,
+      totals,
+    });
 
     res.json({ success: true, plan });
   } catch (err) {
@@ -56,7 +50,7 @@ router.get("/getdiet", auth, async (req, res) => {
 
     if (!plan) {
       return res.json({
-        success: true,  
+        success: true,
         message: "No diet found for today",
         plan: null,
       });
@@ -71,4 +65,24 @@ router.get("/getdiet", auth, async (req, res) => {
     res.status(500).json({ message: "Error fetching diet plan" });
   }
 });
+router.get("/all", auth, async (req, res) => {
+  try {
+    const plans = await DietPlan.find({ userId: req.user.id }).sort({
+      createdAt: -1,
+    }); // latest first
+
+    res.json({
+      success: true,
+      count: plans.length,
+      plans,
+    });
+  } catch (err) {
+    console.error("GET ALL DIET ERROR:", err);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+});
+
 module.exports = router;
