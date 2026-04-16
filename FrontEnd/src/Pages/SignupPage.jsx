@@ -2,6 +2,7 @@ import LoginBtnStyling from "../Components/StyleLoginbtn";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import "../Components/SignUpStyle.css";
 export default function SignUp() {
   const navigate = useNavigate();
   const {
@@ -48,19 +49,19 @@ export default function SignUp() {
   };
 
   return (
-    <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center ">
-      <div
-        className="row shadow-lg rounded-4 overflow-hidden"
-        style={{ width: "900px", background: "rgba(255,255,255,0.97)" }}
-      >
+    <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center signup-container">
+      {" "}
+      <div className="row shadow-lg rounded-4 overflow-hidden signup-card">
+        {" "}
         {/* Left Section */}
-        <div className="col-6 d-flex flex-column justify-content-center align-items-center p-5 bg-primary text-white">
+        <div className="col-6 d-flex flex-column justify-content-center align-items-center p-5 bg-primary text-white signup-left">
+          {" "}
           <h1 className="fw-bold mb-3">Create Account</h1>
           <p className="text-center">Join us and start your journey today 🚀</p>
         </div>
-
         {/* Right Section */}
-        <div className="col-6 d-flex flex-column justify-content-center p-5">
+        <div className="col-6 d-flex flex-column justify-content-center p-5 signup-right">
+          {" "}
           <div className="mb-3">
             <input
               type="text"
@@ -80,7 +81,6 @@ export default function SignUp() {
               <small className="text-danger">{errors.username.message}</small>
             )}
           </div>
-
           <div className="mb-3">
             <input
               type="password"
@@ -96,11 +96,10 @@ export default function SignUp() {
                 },
               })}
             />
-            {errors.username && (
-              <small className="text-danger">{errors.username.message}</small>
-            )}
+            {errors.password && (
+              <small className="text-danger">{errors.password.message}</small>
+            )}{" "}
           </div>
-
           <div className="mb-4">
             <input
               type="email"
@@ -120,7 +119,6 @@ export default function SignUp() {
               <small className="text-danger">{errors.email.message}</small>
             )}
           </div>
-
           <LoginBtnStyling
             text="Create New Account"
             onClick={handleSubmit(apiSubmit)}

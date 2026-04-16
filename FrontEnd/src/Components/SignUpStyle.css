@@ -1,0 +1,28 @@
+/* SignupPage.css */
+
+.signup-container {
+  padding: 20px;
+}
+
+.signup-card {
+  width: 900px;
+  max-width: 100%;
+  background: rgba(255, 255, 255, 0.97);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .signup-card {
+    flex-direction: column !important;
+  }
+
+  .signup-left,
+  .signup-right {
+    width: 100% !important;
+    padding: 20px !important;
+  }
+
+  .signup-left {
+    text-align: center;
+  }
+}

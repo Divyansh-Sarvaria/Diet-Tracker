@@ -1,0 +1,273 @@
+.homepage-wrapper {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.left-panel {
+  width: 41.66%;
+  min-height: 100vh;
+  background: linear-gradient(145deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 25px 35px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.left-panel-inner {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.left-top-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-wrapper {
+  margin-bottom: 20px;
+}
+
+.app-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #fff 0%, #a8e063 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+
+.app-subtitle {
+  opacity: 0.7;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.welcome-section {
+  margin-bottom: 20px;
+}
+
+.welcome-heading {
+  font-weight: 700;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.user-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-card-name {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.user-card-meta {
+  margin: 5px 0 0 0;
+  opacity: 0.7;
+  font-size: 0.85rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-card-label {
+  margin: 0;
+  opacity: 0.6;
+  font-size: 0.75rem;
+}
+
+.stat-card-value {
+  margin: 3px 0 0 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.stat-card-sub {
+  opacity: 0.5;
+  font-size: 0.8rem;
+  margin-left: 3px;
+}
+
+.left-quote {
+  margin-top: 20px;
+}
+
+.quote-text {
+  font-style: italic;
+  opacity: 0.7;
+  border-left: 3px solid #a8e063;
+  padding-left: 12px;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* RIGHT PANEL */
+
+.right-panel {
+  width: 58.34%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.right-panel-inner {
+  max-width: 450px;
+  width: 100%;
+}
+
+.right-panel-header {
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.section-heading {
+  color: #1a1a1a;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+
+.section-subheading {
+  color: #666;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.buttons-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.quick-stats-box {
+  margin-top: 20px;
+  padding: 15px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+}
+
+.quick-stats-title {
+  margin: 0 0 12px 0;
+  color: #666;
+  font-weight: 500;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.quick-stats-row {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.quick-stat-item {
+  text-align: center;
+}
+
+.quick-stat-value {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.quick-stat-label {
+  margin: 2px 0 0 0;
+  font-size: 0.7rem;
+  color: #888;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 767px) {
+  .homepage-wrapper {
+    flex-direction: column;
+  }
+
+  .left-panel {
+    width: 100%;
+    min-height: auto;
+    padding: 20px;
+  }
+
+  .left-panel-inner {
+    height: auto;
+    gap: 16px;
+  }
+
+  .right-panel {
+    width: 100%;
+    min-height: auto;
+    padding: 24px 20px 32px;
+  }
+
+  .app-title {
+    font-size: 1.9rem;
+  }
+
+  .welcome-heading {
+    font-size: 1.4rem;
+  }
+
+  .section-heading {
+    font-size: 1.4rem;
+  }
+
+  .stats-grid {
+    gap: 10px;
+  }
+
+  .quick-stats-row {
+    gap: 8px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .left-panel {
+    padding: 20px 22px;
+  }
+
+  .app-title {
+    font-size: 2rem;
+  }
+
+  .welcome-heading {
+    font-size: 1.5rem;
+  }
+
+  .section-heading {
+    font-size: 1.5rem;
+  }
+}

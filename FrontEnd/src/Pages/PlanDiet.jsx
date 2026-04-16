@@ -231,7 +231,7 @@ export default function PlanDiet() {
     <div className="container-fluid">
       <div className="row">
         {/* LEFT PANEL */}
-        <div className="nutritionPanel col-3">
+        <div className="nutritionPanel">
           <h4 className="panelTitle">Total Nutritional Value</h4>
           <div className="progressGrid" style={{ height: "100vh" }}>
             <WaterProgress
@@ -258,10 +258,7 @@ export default function PlanDiet() {
         </div>
 
         {/* RIGHT PANEL */}
-        <div
-          className="col-9"
-          style={{ marginTop: "40px", width: "80%", position: "relative" }}
-        >
+        <div style={{ flex: 1 }}>
           <SearchBar
             setQuery={setQuery}
             setPage={setPage}

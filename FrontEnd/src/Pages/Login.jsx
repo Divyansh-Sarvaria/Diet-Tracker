@@ -2,6 +2,7 @@ import LoginBtn from "../Components/StyleLoginbtn.jsx";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import "../Components/LoginPageStyle.css";
 export default function LoginPage() {
   const navigate = useNavigate();
 
@@ -38,21 +39,21 @@ export default function LoginPage() {
     formState: { errors },
   } = useForm();
   return (
-    <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
-      <div
-        className="row shadow-lg rounded-4 overflow-hidden"
-        style={{ width: "900px", background: "rgba(255,255,255,0.95)" }}
-      >
+    <div className="container-fluid min-vh-100 d-flex justify-content-center align-items-center login-container">
+      {" "}
+      <div className="row shadow-lg rounded-4 overflow-hidden login-card">
+        {" "}
         {/* LEFT SIDE */}
-        <div className="col-6 d-flex flex-column justify-content-center p-5">
+        <div className="col-6 d-flex flex-column justify-content-center p-5 login-left">
+          {" "}
           <h1 className="fw-bold mb-3">Welcome 👋</h1>
           <p className="text-muted fs-5">
             Track your diet, stay healthy, and achieve your goals.
           </p>
         </div>
-
         {/* RIGHT SIDE */}
-        <div className="col-6 d-flex justify-content-center align-items-center p-5">
+        <div className="col-6 d-flex justify-content-center align-items-center p-5 login-right">
+          {" "}
           <div className="w-100" style={{ maxWidth: "320px" }}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-3">
