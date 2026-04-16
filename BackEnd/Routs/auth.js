@@ -14,13 +14,10 @@ const login = async (req, res) => {
 
     const user = await User.findOne({ username });
 
-    if (!user) {
+    if (!user || user.password !== password) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    if (user.password !== password) {
-      return res.status(401).json({ message: "Invalid credentials" });
-    }
     const token = jwt.sign({ id: user._id }, "MY_SECRET_KEY", {
       expiresIn: "1h",
     });
@@ -31,26 +28,30 @@ const login = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Server error", token: token });
+    res.status(500).json({ message: "Server error" });
   }
 };
 const signup = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    if (!username || !email || !password) {
-      return res.status(400).json({ message: "please fill all feilds" });
+    if (!username || !password) {
+      return res.status(400).json({ message: "Username & password required" });
     }
+
     const existingUser = await User.findOne({ username });
+
     if (existingUser) {
-      return res.status(400).json({ message: "Username Aleready exists" });
+      return res.status(400).json({ message: "Username already exists" });
     }
+
     const user = new User({ username, email, password });
     await user.save();
-    res.json({ messge: "registration successful" });
+
+    res.json({ message: "Registration successful" });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ message: "Server Error" });
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
   }
 };
 const getProfile = async (req, res) => {

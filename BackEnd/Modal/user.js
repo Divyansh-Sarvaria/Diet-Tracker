@@ -12,9 +12,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    password: {
+    email: {
       type: String,
-      required: true,
+      required: true, // ⚠️ keep false so old users don't break
+      unique: true,
+      sparse: true,
     },
     protein: {
       type: Number,
