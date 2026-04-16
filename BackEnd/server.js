@@ -17,13 +17,13 @@ app.use("/nutrition", nutritionRoutes);
 
 const mealRoutes = require("./Routs/mealRouts");
 app.use("/Meal", mealRoutes);
-  
+
 app.get("/", (req, res) => {
   res.send("API is running");
 });
 app.use("/diet", require("./Routs/Diet"));
-const port = 5000;
+const PORT = process.env.PORT || 5000;
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
