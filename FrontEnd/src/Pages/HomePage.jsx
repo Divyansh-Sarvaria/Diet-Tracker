@@ -10,7 +10,7 @@ export default function HomePage() {
   useEffect(() => {
     if (!token) return;
 
-    fetch("http://localhost:5000/diet/getdiet", {
+    fetch("https://diet-tracker-tbn5.onrender.com/diet/getdiet", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -24,7 +24,7 @@ export default function HomePage() {
   useEffect(() => {
     if (!token) return;
 
-    fetch("http://localhost:5000/auth/profile", {
+    fetch("https://diet-tracker-tbn5.onrender.com/auth/profile", {
       headers: {
         Authorization: `Bearer ${token}`,
       },

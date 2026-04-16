@@ -6,11 +6,14 @@ export default function SavedDietPlans() {
 
   const fetchPlans = async () => {
     try {
-      const res = await fetch("http://localhost:5000/diet/all", {
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem("token"),
+      const res = await fetch(
+        "https://diet-tracker-tbn5.onrender.com/diet/all",
+        {
+          headers: {
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
         },
-      });
+      );
 
       const data = await res.json();
 

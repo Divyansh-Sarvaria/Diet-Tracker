@@ -167,19 +167,22 @@ export default function PlanDiet() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/diet/save", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("token"),
+      const res = await fetch(
+        "https://diet-tracker-tbn5.onrender.com/diet/save",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          body: JSON.stringify({
+            name: planName,
+            foods: selectedFoods,
+            totals,
+            date: new Date().toISOString().split("T")[0],
+          }),
         },
-        body: JSON.stringify({
-          name: planName,
-          foods: selectedFoods,
-          totals,
-          date: new Date().toISOString().split("T")[0],
-        }),
-      });
+      );
 
       const data = await res.json();
 
