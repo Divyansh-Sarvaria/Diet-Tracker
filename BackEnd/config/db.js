@@ -2,11 +2,12 @@ const mongoose = require("mongoose");
 
 const connectDb = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/DiteTracker");
-    console.log("connected hui hui");
-  } catch (error) {
-    console.error("failed to connect ", error.message);
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.error("DB ERROR:", err);
     process.exit(1);
   }
 };
+
 module.exports = connectDb;
