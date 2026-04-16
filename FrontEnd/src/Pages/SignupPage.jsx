@@ -24,7 +24,7 @@ export default function SignUp() {
   const apiSubmit = async (data) => {
     try {
       const res = await fetch(
-        "https://diet-tracker-tbn5.onrender.com/auth/SignUp",
+        "https://diet-tracker-tbn5.onrender.com/auth/signup",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

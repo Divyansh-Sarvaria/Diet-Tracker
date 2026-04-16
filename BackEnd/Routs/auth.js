@@ -98,6 +98,6 @@ const saveProfile = async (req, res) => {
   }
 };
 router.post("/login", login);
-router.post("/SignUp", signup);
+router.post("/signup", signup);
 router.route("/profile").get(auth, getProfile).put(auth, saveProfile);
 module.exports = router;
