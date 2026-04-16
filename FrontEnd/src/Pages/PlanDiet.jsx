@@ -106,9 +106,12 @@ export default function PlanDiet() {
       );
       const data = await res.json();
       const filtered = data.foods
-        .filter((food) => food.name.toLowerCase().includes(query.toLowerCase()))
-        .filter(isValidFood);
+        .filter((food) => {
+          if (!query.trim()) return true;
 
+          return food.name.toLowerCase().includes(query.toLowerCase());
+        })
+        .filter(isValidFood);
       setFoods((prev) => {
         const combined = [...prev, ...filtered];
         return combined.filter(
@@ -226,7 +229,15 @@ export default function PlanDiet() {
     }
     return acc;
   }, {});
+  const handleSearch = () => {
+    setFoods([]);
+    setPage(1);
 
+    if (!query.trim()) {
+      // 🔥 force re-fetch with random
+      setQuery("");
+    }
+  };
   return (
     <div className="container-fluid">
       <div className="row">
@@ -263,6 +274,7 @@ export default function PlanDiet() {
             setQuery={setQuery}
             setPage={setPage}
             setFoods={setFoods}
+            onSearch={handleSearch}
           />
 
           {/* PINNED SELECTED SECTION */}
