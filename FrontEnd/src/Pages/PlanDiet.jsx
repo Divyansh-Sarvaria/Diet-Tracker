@@ -99,7 +99,7 @@ export default function PlanDiet() {
     setLoading(true);
     try {
       const res = await fetch(
-        `http://localhost:5000/nutrition?query=${query || randomFood}&page=${page}`,
+        `https://diet-tracker-tbn5.onrender.com/nutrition?query=${query || randomFood}&page=${page}`,
         {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         },
