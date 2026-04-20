@@ -13,7 +13,7 @@ export default function Footer() {
       }}
     >
       <p style={{ color: "white", padding: "0", margin: "0" }}>
-        -- HEHE made by - Divyansh Sarvaria
+        --made by - Divyansh Sarvaria , Daksh Mittal ,  Saksham Gupta, Faizal 
       </p>
     </footer>
   );
