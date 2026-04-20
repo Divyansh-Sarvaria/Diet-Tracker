@@ -30,7 +30,28 @@ export default function SavedDietPlans() {
   useEffect(() => {
     fetchPlans();
   }, []);
+  const handleDelete = async (id) => {
+  try {
+    const res = await fetch(
+      `https://diet-tracker-tbn5.onrender.com/diet/delete/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    );
 
+    const data = await res.json();
+
+    if (data.success) {
+      // remove from UI instantly
+      setPlans((prev) => prev.filter((plan) => plan._id !== id));
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
   if (loading) return <p>Loading...</p>;
 
   return (
@@ -41,9 +62,9 @@ export default function SavedDietPlans() {
         <p>No plans found</p>
       ) : (
         <div style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-          {plans.map((plan) => (
-            <Card key={plan._id} plan={plan} />
-          ))}
+{plans.map((plan) => (
+  <Card key={plan._id} plan={plan} onDelete={handleDelete} />
+))}
         </div>
       )}
     </div>

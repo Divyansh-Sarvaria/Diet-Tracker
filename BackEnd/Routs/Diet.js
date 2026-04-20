@@ -84,5 +84,35 @@ router.get("/all", auth, async (req, res) => {
     });
   }
 });
+// ❌ HARD DELETE DIET PLAN (permanent)
+router.delete("/delete/:id", auth, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const planId = req.params.id;
 
+    const deletedPlan = await DietPlan.findOneAndDelete({
+      _id: planId,
+      userId, // 🔒 ensures ownership
+    });
+
+    if (!deletedPlan) {
+      return res.status(404).json({
+        success: false,
+        message: "Plan not found or unauthorized",
+      });
+    }
+
+    res.json({
+      success: true,
+      message: "Plan permanently deleted",
+      deletedPlanId: planId,
+    });
+  } catch (err) {
+    console.error("DELETE ERROR:", err);
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+    });
+  }
+});
 module.exports = router;

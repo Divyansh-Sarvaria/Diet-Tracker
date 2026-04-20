@@ -1,10 +1,33 @@
 import React from "react";
 import styled from "styled-components";
 
-const Card = ({ plan }) => {
+const Card = ({ plan,onDelete }) => {
+  
   return (
     <StyledWrapper>
+      
       <div className="card">
+              <button
+        onClick={() => {
+          if (window.confirm("Delete this plan?")) {
+            onDelete(plan._id);
+          }
+        }}
+        style={{
+          position: "absolute",
+          top: "8px",
+          right: "8px",
+          border: "none",
+          background: "red",
+          color: "white",
+          borderRadius: "50%",
+          width: "25px",
+          height: "25px",
+          cursor: "pointer",
+        }}
+      >
+        X
+      </button>
         <h4 className="title">{plan.name}</h4>
         <p className="date">{plan.date}</p>
 
